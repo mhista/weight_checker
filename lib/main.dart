@@ -1,58 +1,46 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:audioplayers/audioplayers.dart';
+
 void main() {
   runApp(
     MaterialApp(
       home:Scaffold(
       appBar:AppBar(
         backgroundColor:Colors.red,
-        title:Text('dice game')
+        title:Text('Xylo App')
       ),
-      body:DicePage(),
+      body:XyloApp(),
         backgroundColor:Colors.red,
       ),
     ),
   );
 }
-class DicePage extends StatefulWidget {
-  const DicePage({super.key});
+class XyloApp extends StatelessWidget {
+  const XyloApp({super.key});
+  Expanded buildContext({required Color color, required int noteNumber})=>Expanded(
+    child: TextButton(
+      style: ButtonStyle(
+        backgroundColor:MaterialStatePropertyAll(color),
+      ),
+      onPressed:(){
+        final player= AudioPlayer();
+        player.play(AssetSource('note$noteNumber.wav'),);
+      }, child: Text('click me'),),
+  );
 
-  @override
-  State<DicePage> createState() => _DicePageState();
-}
 
-class _DicePageState extends State<DicePage> {
-  var leftDiceNumber = 1;
-  var rightDiceNumber = 1;
-  void increaseCount(){
-    leftDiceNumber=Random().nextInt(6)+1;
-    rightDiceNumber=Random().nextInt(6)+1;
-  }
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        children:[
-            Expanded(
-              child:TextButton(onPressed: () {
-               setState(() {
-                 increaseCount();
-                 print('the $leftDiceNumber');
-               });
-              },
-              child: Image.asset('images/dice$leftDiceNumber.png'),)
-          ),
-          Expanded(
-              child:TextButton(onPressed: () {
-                setState(() {
-                  increaseCount();
-                  print('the $leftDiceNumber');
-                });
-              },
-                child: Image.asset('images/dice$rightDiceNumber.png'),)
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        buildContext(color:Colors.red,noteNumber:1),
+        buildContext(color:Colors.blue,noteNumber:2),
+        buildContext(color:Colors.orange,noteNumber:3),
+        buildContext(color:Colors.indigo,noteNumber:4),
+        buildContext(color:Colors.purple,noteNumber:5),
+        buildContext(color:Colors.green,noteNumber:6),
+      ],
     );
   }
 }
+
