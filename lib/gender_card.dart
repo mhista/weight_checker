@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-const genderStyle = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xFF8D8E98),
-);
+import 'constants.dart';
 
 class genderWidget extends StatelessWidget {
   const genderWidget({required this.gender, required this.icon_Type});
@@ -18,7 +15,7 @@ class genderWidget extends StatelessWidget {
       SizedBox(height: 15.0),
       Text(
         gender,
-        style: genderStyle,
+        style: kGenderStyle,
       )
     ]);
   }
